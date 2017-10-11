@@ -1,0 +1,129 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Yarn Palette</title>
+
+  <meta name="description" content="Get the dominant colour or colour palette from an image, and find the closest matching yarns">
+  <meta name="author" content="Tom Fay">
+
+  <!-- Mobile Specific Metas  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <div class="section">
+    <div class="container">
+      <h1 class="logo">Yarn Palette</h1>
+      <p>
+      Need help choosing colours for your next Fair Isle project?<br>
+      Pick an image and find the nearest matching colours of Jamieson's or Jamieson and Smith jumperweight yarn.
+      </p>
+    </div>
+  </div>
+  <div class="section">
+    <div class="container">
+      <h2>Try it</h2>
+      <form autocomplete="off">
+        <div class="row">
+          <div class="six columns">
+            <label for="yarnType">Yarn</label>
+            <select id="yarnType" class="u-full-width">
+              <option value="" disabled hidden selected>Please choose...</option>
+              <option value="JANDS">Jamieson and Smith 2-ply jumperweight</option>
+              <option value="SPINDRIFT">Jamieson's spindrift</option>
+            </select>
+          </div>
+          <div class="six columns">
+            <label for="numColours">Number of colours</label>
+            <select id="numColours" class="u-full-width">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5" selected="selected">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="hidden">
+        <label for="file">Select an image</label>
+        <input type="file" name="inputfile" id="image-input" accept="image/*"/>
+      </div>
+      <div id="selected-image"></div>
+    </div>
+  </div>
+
+  <div class="section hidden">
+    <div class="container">
+      <h2>Examples</h2>
+      <div id="example-images"></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="container">
+      <h2>Caveats</h2>
+      <ul>
+        <ol>Real yarn colours can differ from those displayed on the internet</ol>
+        <ol>This site uses the single dominant colour of a yarn when picking colours,
+          so is useless for marled or speckled yarns</ol>
+      </ul>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>
+        Created by Tom Fay - Ravelry user <a href="http://www.ravelry.com/people/tofay" target="_blank">tofay</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- Mustache templates taken from color-thief. Copyright (c) 2015 Lokesh Dhakar -->
+  <script id='image-section-template' type='text/x-mustache'>
+    {{#images}}
+      <div class="row image-section">
+        <div class="four columns">
+          <img class="u-full-width target-image" src="{{file}}">
+        </div>
+        <div class="eight columns">
+          <input class="button button-primary pick-colours-button" value="Pick yarns!" type="submit">
+          <div class="yarn-palette"></div>
+        </div>
+      </div>
+    {{/images}}
+  </script>
+
+  <script id="yarn-palette-template" type="text/x-mustache">
+    <div class="function get-palette">
+      Palette
+      <div class="swatches u-full-width">
+        {{#palette}}
+          <div class="swatch" style="background-color: rgb({{0}}, {{1}}, {{2}})"></div>
+        {{/palette}}
+      </div>
+      Closest yarn colours are
+      <div class="u-full-width">
+        {{#yarns}}
+        <figure style="display: inline-block">
+            <img class="yarn-img" src="{{1}}" alt="{{0}}">
+            <figcaption>{{0}}</figcaption>
+        </figure>
+        {{/yarns}}
+      </div>
+    </div>
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.0.1/color-thief.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.3.0/mustache.min.js"></script>
+  <script src="js/yarns.js"></script>
+  <script src="js/yarn-palette.js"></script>
+</body>
+</html>
