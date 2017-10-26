@@ -30,9 +30,9 @@ $(document).ready(function() {
    * Example rendering taken from color-thief. Copyright (c) 2015 Lokesh Dhakar
    */
   var imageArray = {images: [
-    {'file': 'examples/photo1.jpg'},
-    {'file': 'examples/photo2.jpg'},
-    {'file': 'examples/photo3.jpg'}
+    {'file': 'img/examples/photo1.jpg'},
+    {'file': 'img/examples/photo2.jpg'},
+    {'file': 'img/examples/photo3.jpg'}
   ]};
   var examplesHTML = Mustache.to_html($('#image-section-template').html(), imageArray);
   $('#example-images').append(examplesHTML);
