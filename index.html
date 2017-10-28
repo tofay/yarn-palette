@@ -9,23 +9,13 @@
 
   <!-- Mobile Specific Metas  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <link rel="stylesheet" href="css/skeleton.2.0.4.min.css">
   <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
+
   <div class="section">
     <div class="container">
-      <h1 class="logo">Yarn Palette</h1>
-      <p>
-      Need help choosing colours for your next Fair Isle project?<br>
-      Pick an image and find the nearest matching colours of yarn.
-      </p>
-    </div>
-  </div>
-  <div class="section">
-    <div class="container">
-      <h2>Try it</h2>
       <form autocomplete="off">
         <div class="row">
           <div class="six columns">
@@ -53,30 +43,9 @@
         </div>
       </form>
       <div class="hidden">
-        <label for="image-input">Pick an image</label>
-        <input type="file" name="inputfile" id="image-input" accept="image/*"/>
-        <p>The selected image will not leave your device.</p>
+        <button id="take-photo-button" class="button-primary">Take a photo</button>
       </div>
       <div id="selected-image"></div>
-    </div>
-  </div>
-
-  <div class="section hidden">
-    <div class="container">
-      <h2>Examples</h2>
-      <div id="example-images"></div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="container">
-      <h2>Caveats</h2>
-      <ul>
-        <li>Real yarn colours can differ from those displayed on the internet.</li>
-        <li>This site uses the single dominant colour of a yarn when picking colours,
-          so is useless for marled or speckled yarns.</li>
-        <li>The number of displayed yarns may slightly differ from the number chosen.</li>
-      </ul>
     </div>
   </div>
 
@@ -88,7 +57,7 @@
     </div>
   </footer>
 
-  <!-- Mustache templates taken from color-thief. Copyright (c) 2015 Lokesh Dhakar -->
+<!-- Mustache templates taken from color-thief. Copyright (c) 2015 Lokesh Dhakar -->
   <script id='image-section-template' type='text/x-mustache'>
     {{#images}}
       <div class="row image-section">
@@ -127,5 +96,6 @@
   <script src="js/mustache.2.3.0.min.js"></script>
   <script src="js/yarns.js"></script>
   <script src="js/yarn-palette.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>

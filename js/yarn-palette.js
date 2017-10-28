@@ -23,72 +23,42 @@ function nearestNeighbour(points, queryPoint) {
   }, 0);
 }
 
+function pickYarns($imageSection, colorThief) {
+  var image = $imageSection.find('img')[0];
+  var palette = colorThief.getPalette(image, parseInt($('#numColours').val()));
+  var yarnRange = window[$('#yarnType').val()];
+  var colours = yarnRange.map(x => x[2]);
+  var yarns = palette.map(x => yarnRange[nearestNeighbour(colours, x)])
 
-$(document).ready(function() {
+  var context = {
+    palette: palette,
+    yarns: yarns
+  };
+  var outputHtml = Mustache.to_html($('#yarn-palette-template').html(), context);
+  $imageSection.find('.yarn-palette').prepend(outputHtml);
+  $imageSection.find('.pick-colours-button').hide();
+}
 
-  /*
-   * Example rendering taken from color-thief. Copyright (c) 2015 Lokesh Dhakar
-   */
-  var imageArray = {images: [
-    {'file': 'img/examples/photo1.jpg'},
-    {'file': 'img/examples/photo2.jpg'},
-    {'file': 'img/examples/photo3.jpg'}
-  ]};
-  var examplesHTML = Mustache.to_html($('#image-section-template').html(), imageArray);
-  $('#example-images').append(examplesHTML);
-
-  // Event handlers for buttons
-  function addButtonHandlers() {
-    $('.pick-colours-button').unbind().click(function(event) {
-      var $imageSection = $(this).closest('.image-section');
-      pickYarns($imageSection);
-    });
-  }
-
-  addButtonHandlers();
-
-  // When a yarn type is selected show the hidden elements.
-  $('#yarnType').change(function() {
-    if ($(this).val() != '') {
-      $('.hidden').show()
-    }
+// Event handlers for buttons
+function addButtonHandlers(colorThief) {
+  $('.pick-colours-button').unbind().click(function(event) {
+    var $imageSection = $(this).closest('.image-section');
+    pickYarns($imageSection, colorThief);
   });
+}
 
-  // Display the image when the user selects it
-  function displayImage(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        var imageArray = {images: [
-          {'file': e.target.result}
-        ]};
-        var imageInputHtml = Mustache.to_html($('#image-section-template').html(), imageArray);
-        $('#selected-image').prepend(imageInputHtml);
-        addButtonHandlers(); // Lazy... only need to add handler for new button
-      }
-      reader.readAsDataURL(input.files[0]);
+// Display the image when the user selects it
+function displayImage(input, colorThief) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var imageArray = {images: [
+        {'file': e.target.result}
+      ]};
+      var imageInputHtml = Mustache.to_html($('#image-section-template').html(), imageArray);
+      $('#selected-image').prepend(imageInputHtml);
+      addButtonHandlers(); // Lazy... only need to add handler for new button
     }
+    reader.readAsDataURL(input.files[0]);
   }
-
-  $("#image-input").change(function(){
-      displayImage(this);
-  });
-
-  var colorThief = new ColorThief();
-
-  var pickYarns = function($imageSection ) {
-    var image = $imageSection.find('img')[0];
-    var palette = colorThief.getPalette(image, parseInt($('#numColours').val()));
-    var yarnRange = window[$('#yarnType').val()];
-    var colours = yarnRange.map(x => x[2]);
-    var yarns = palette.map(x => yarnRange[nearestNeighbour(colours, x)])
-
-    var context = {
-      palette: palette,
-      yarns: yarns
-    };
-    var outputHtml = Mustache.to_html($('#yarn-palette-template').html(), context);
-    $imageSection.find('.yarn-palette').prepend(outputHtml);
-    $imageSection.find('.pick-colours-button').hide();
-  }
-});
+}
