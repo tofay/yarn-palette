@@ -1,14 +1,3 @@
-$(document).ready(function() {
-
-
-
-  $("#image-input").change(function(){
-      displayImage(this, colorThief);
-  });
-});
-
-
-
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
   var colorThief = new ColorThief();
@@ -21,12 +10,12 @@ function onDeviceReady() {
     }
   });
 
-function openCamera(event) {
+  function openCamera(event) {
 
     var options = {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.CAMERA;,
+        sourceType: Camera.PictureSourceType.CAMERA,
         encodingType: Camera.EncodingType.JPEG,
         mediaType: Camera.MediaType.PICTURE,
         allowEdit: true,
@@ -44,9 +33,8 @@ function openCamera(event) {
     }, function cameraError(error) {
         console.debug("Unable to obtain picture: " + error, "app");
     }, options);
-}
+  }
 
   // When a yarn type is selected show the hidden elements.
   $('#take-photo-button').click(openCamera);
-
 }
