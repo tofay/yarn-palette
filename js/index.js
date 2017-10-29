@@ -1,7 +1,6 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
   var colorThief = new ColorThief();
-  addButtonHandlers(colorThief);
 
   // When a yarn type is selected show the hidden elements.
   $('#yarnType').change(function() {
@@ -15,7 +14,7 @@ function onDeviceReady() {
     var options = {
         quality: 50,
         destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.CAMERA,
+        sourceType: event.data,
         encodingType: Camera.EncodingType.JPEG,
         mediaType: Camera.MediaType.PICTURE,
         allowEdit: true,
@@ -28,7 +27,7 @@ function onDeviceReady() {
       ]};
       var imageInputHtml = Mustache.to_html($('#image-section-template').html(), imageArray);
       $('#selected-image').prepend(imageInputHtml);
-      addButtonHandlers();
+      addButtonHandlers(colorThief);
 
     }, function cameraError(error) {
         console.debug("Unable to obtain picture: " + error, "app");
@@ -36,5 +35,6 @@ function onDeviceReady() {
   }
 
   // When a yarn type is selected show the hidden elements.
-  $('#take-photo-button').click(openCamera);
+  $('#take-photo-button').click(Camera.PictureSourceType.CAMERA, openCamera);
+  $('#select-image-button').click(Camera.PictureSourceType.PHOTOLIBRARY, openCamera);
 }
