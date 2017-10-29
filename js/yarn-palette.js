@@ -35,8 +35,7 @@ function pickYarns($imageSection, colorThief) {
     yarns: yarns
   };
   var outputHtml = Mustache.to_html($('#yarn-palette-template').html(), context);
-  $imageSection.find('.yarn-palette').prepend(outputHtml);
-  $imageSection.find('.pick-colours-button').hide();
+  $imageSection.find('.yarn-palette').empty().prepend(outputHtml);
 }
 
 // Event handlers for buttons
