@@ -1,0 +1,47 @@
+.hidden {
+  display: none
+}
+
+.yarn-img {
+    width:100%;
+    max-width:8rem;
+}
+
+select:focus {
+  border: 1px solid #008080;
+}
+
+
+button.button-primary:hover {
+  background-color: #00cccc;
+  border-color: #00cccc;
+}
+
+button.button-primary:focus {
+  background-color: #00b3b3;
+  border-color: #00b3b3;
+}
+
+button.button-primary {
+  background-color: #008080;
+  border-color: #008080;
+}
+
+a:hover {
+  color: #00cccc;
+}
+
+a {
+  color: #008080;
+}
+
+/*Swatch css taken from color-thief. Copyright (c) 2015 Lokesh Dhakar */
+.swatch{
+   display:inline-block;margin:0;width:3rem;height:2rem
+}
+
+@media (min-width: 40rem){
+  .swatch{
+    width:6rem;height:3.5rem;margin-right:-2px
+  }
+}

@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="uk.co.teamfay.yarnpalette" version="0.1.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Yarn Palette</name>
+    <description>
+        Create a palette of yarn from an image.
+    </description>
+    <author email="tom@teamfay.co.uk" href="https://github.com/tofay/">
+        Tom Fay
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <preference name="applicationId" value="uk.co.teamfay.yarnpalette" />
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="res/icons/android/ldpi.png" />
+        <icon density="mdpi" src="res/icons/android/mdpi.png" />
+        <icon density="hdpi" src="res/icons/android/hdpi.png" />
+        <icon density="xhdpi" src="res/icons/android/xhdpi.png" />
+        <icon density="xxhdpi" src="res/icons/android/xxhdpi.png" />
+        <icon density="xxxhdpi" src="res/icons/android/xxxhdpi.png" />
+        <splash density="port-ldpi" src="res/screens/android/splash-port-ldpi.png" />
+        <splash density="port-mdpi" src="res/screens/android/splash-port-mdpi.png" />
+        <splash density="port-hdpi" src="res/screens/android/splash-port-hdpi.png" />
+        <splash density="port-xhdpi" src="res/screens/android/splash-port-xhdpi.png" />
+        <splash density="port-xxhdpi" src="res/screens/android/splash-port-xxhdpi.png" />
+        <splash density="port-xxxhdpi" src="res/screens/android/splash-port-xxxhdpi.png" />
+        <splash density="land-ldpi" src="res/screens/android/splash-land-ldpi.png" />
+        <splash density="land-mdpi" src="res/screens/android/splash-land-mdpi.png" />
+        <splash density="land-hdpi" src="res/screens/android/splash-land-hdpi.png" />
+        <splash density="land-xhdpi" src="res/screens/android/splash-land-xhdpi.png" />
+        <splash density="land-xxhdpi" src="res/screens/android/splash-land-xxhdpi.png" />
+        <splash density="land-xxxhdpi" src="res/screens/android/splash-land-xxxhdpi.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <engine name="android" spec="^6.3.0" />
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.2" />
+    <plugin name="cordova-plugin-camera" spec="^2.4.1" />
+</widget>

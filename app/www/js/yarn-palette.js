@@ -27,8 +27,12 @@ function pickYarns($imageSection, colorThief) {
   var image = $imageSection.find('img')[0];
   var palette = colorThief.getPalette(image, parseInt($('#numColours').val()));
   var yarnRange = window[$('#yarnType').val()];
-  var colours = yarnRange.map(x => x[2]);
-  var yarns = palette.map(x => yarnRange[nearestNeighbour(colours, x)])
+  var colours = yarnRange.map(function(x) {return x[2]});
+  var yarns = palette.map(function(x) {
+   return yarnRange[nearestNeighbour(colours, x)]
+  }).filter(function(elem, pos, arr) {
+    return arr.indexOf(elem) == pos; //Filter out duplicates
+  });
 
   var context = {
     palette: palette,
