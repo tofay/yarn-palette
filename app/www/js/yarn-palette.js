@@ -1,31 +1,27 @@
 /**
- * Calculates the square of the Euclidean distance between 2 points.
+ * Calculate colour distance using http://zschuessler.github.io/DeltaE/learn/#toc-delta-e-2000
+ * 
+ * @param  {int[]} rgb1 - RGB colour.
+ * @param  {int[]} rgb2 = RGB colour.
  */
-function distance(p1, p2) {
-  return p1.reduce(function(acc, val, idx) {
-    return acc + Math.pow(val - p2[idx], 2);
-  }, 0);
-}
-
-/*
- * Using formula from https://www.compuphase.com/cmetric.htm
- */
-function weighted_distance(p1, p2) {
-  var mean_red = (p1[0] + p2[0]) / 2;
-  var weights = [2 + (mean_red/256), 4, 2 + (255-mean_red)/256];
-  return weights.reduce(function(acc, val, idx) {
-    return acc + val * Math.pow(p1[idx] - p2[idx], 2);
-  }, 0);
+function cielab_distance_2000(rgb1, rgb2) {
+  var lab1 = d3.lab(d3.rgb(rgb1[0], rgb1[1], rgb1[2]));
+  var lab2 = d3.lab(d3.rgb(rgb2[0], rgb2[1], rgb2[2]));
+  return DeltaE.getDeltaE00({L: lab1.l, A: lab1.a, B: lab1.b},
+                            {L: lab2.l, A: lab2.a, B: lab2.b});
 }
 
 /**
- * Determines the index of the closest point in an array of points that is
- * closest to some query point.
+ * Determines the index of the colour in an array of colours that is
+ * closest to a specified query colour.
+ * 
+ * @param  {int[][]} colours - An array of RGB colour points.
+ * @param  {int[]} query - RGB colour point.
  */
-function nearestNeighbour(points, queryPoint) {
+function nearestNeighbour(colours, query) {
   // Get the distance from the query_point to each of the points.
-  var distances = points.map(function(x) {
-    return weighted_distance(x, queryPoint)
+  var distances = colours.map(function(x) {
+    return cielab_distance_2000(x, query);
   });
 
   // The accumulator is the index of the smallest item.

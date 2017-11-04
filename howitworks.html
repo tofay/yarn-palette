@@ -26,11 +26,11 @@
         <h1 class="logo">How it works</h1>
         <p>
           The dominant colours are extracted from the image using <a href="http://lokeshdhakar.com/projects/color-thief/">colof-thief</a>.  These colours are then
-          compared against pre-calculated (also using color-thief) colours for each of the shades of yarns in the selected range.  The main downside to this approach is
-          that shadows or lighting in the original yarn photos can trick Yarn Palette into choosing colours for the shades poorly.
+          compared against pre-calculated (also using color-thief) colours for each of the shades of yarns in the selected range, using the
+          <a href="https://en.wikipedia.org/wiki/Color_difference#CIEDE2000">CIELAB delta E 2000</a> colour difference algorithm.
         </p>
         <p>
-          To see those colour choices, select a yarn range and click the button.
+          To see the pre-calculated colour choices, select a yarn range and click the button.
         </p>
         <form autocomplete="off" onsubmit="return false">
           <label for="yarnType">Yarn</label>
