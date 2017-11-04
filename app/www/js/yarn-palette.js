@@ -7,6 +7,17 @@ function distance(p1, p2) {
   }, 0);
 }
 
+/*
+ * Using formula from https://www.compuphase.com/cmetric.htm
+ */
+function weighted_distance(p1, p2) {
+  var mean_red = (p1[0] + p2[0]) / 2;
+  var weights = [2 + (mean_red/256), 4, 2 + (255-mean_red)/256];
+  return weights.reduce(function(acc, val, idx) {
+    return acc + val * Math.pow(p1[idx] - p2[idx], 2);
+  }, 0);
+}
+
 /**
  * Determines the index of the closest point in an array of points that is
  * closest to some query point.
@@ -14,7 +25,7 @@ function distance(p1, p2) {
 function nearestNeighbour(points, queryPoint) {
   // Get the distance from the query_point to each of the points.
   var distances = points.map(function(x) {
-    return distance(x, queryPoint)
+    return weighted_distance(x, queryPoint)
   });
 
   // The accumulator is the index of the smallest item.

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Yarn Palette</title>
+
+    <meta name="description" content="Get the dominant colour or colour palette from an image, and find the closest matching yarns">
+    <meta name="author" content="Tom Fay">
+
+    <!-- Mobile Specific Metas  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="app/www/css/skeleton.2.0.4.min.css">
+    <link rel="stylesheet" href="app/www/css/custom.css">
+    <style>
+      .swatch {
+        width: 10rem;
+        height: 10rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="section">
+      <div class="container">
+        <h1 class="logo">How it works</h1>
+        <p>
+          The dominant colours are extracted from the image using <a href="http://lokeshdhakar.com/projects/color-thief/">colof-thief</a>.  These colours are then
+          compared against pre-calculated (also using color-thief) colours for each of the shades of yarns in the selected range.  The main downside to this approach is
+          that shadows or lighting in the original yarn photos can trick Yarn Palette into choosing colours for the shades poorly.
+        </p>
+        <p>
+          To see those colour choices, select a yarn range and click the button.
+        </p>
+        <form autocomplete="off" onsubmit="return false">
+          <label for="yarnType">Yarn</label>
+          <div class="row">
+            <div class="six columns">
+              <select id="yarnType" class="u-full-width">
+                <option value="" disabled hidden selected>Please choose...</option>
+                <option value="SPINDRIFT">Jamieson's of Shetland Spindrift and Double Knitting</option>
+                <option value="JANDS">Jamieson and Smith 2ply Jumper Weight</option>
+              </select>
+            </div>
+            <div class="six columns">
+              <button id="show-colours-button" class="button-primary hidden">Show colours!</button>
+            </div>
+          </div>
+        </form>
+        <div id="colour-display"></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="container">
+        <h2>Source code</h2>
+        <p>The source code for Yarn Palette is available on <a href="https://github.com/tofay/yarn-palette">github</a>.</p>
+      </div>
+    </div>
+
+    <script id='colour-template' type='text/x-mustache'>
+      {{#yarns}}
+      <div class="row">
+        <div class="six columns">
+          <figure style="display: inline-block">
+            <img src="app/www/{{src}}" alt="{{alt}}">
+            <figcaption>{{alt}}</figcaption>
+          </figure>
+        </div>
+        <div class="six columns">
+          <div class="swatch" style="background-color: rgb({{col_r}}, {{col_g}}, {{col_b}})"></div>
+        </div>
+      </div>
+      {{/yarns}}
+    </script>
+
+    <script src="app/www/js/color-thief.2.0.1.min.js"></script>
+    <script src="app/www/js/jquery.3.2.1.min.js"></script>
+    <script src="app/www/js/mustache.2.3.0.min.js"></script>
+    <script src="app/www/js/yarns.js"></script>
+    <script src="app/www/js/yarn-palette.js"></script>
+
+    <script>
+      // When a yarn type is selected show the hidden elements.
+      $('#yarnType').change(function () {
+        if ($(this).val() != '') {
+          $('.hidden').show()
+        }
+      });
+
+      $('#show-colours-button').unbind().click(function (event) {
+        var yarns = window[$('#yarnType').val()];
+        var context = {yarns: yarns.map(function(x) {
+            return {'alt': x[0], 'src': x[1], 'col_r': x[2][0], 'col_g': x[2][1], 'col_b': x[2][2]}
+          })
+        };
+
+        var colourHTML = Mustache.to_html($('#colour-template').html(), context);
+        $('#colour-display').empty().prepend(colourHTML);
+      });
+    </script>
+  </body>
+</html>
