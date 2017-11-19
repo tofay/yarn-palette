@@ -10,23 +10,19 @@
     <!-- Mobile Specific Metas  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="app/www/css/skeleton.2.0.4.min.css">
-    <link rel="stylesheet" href="app/www/css/custom.css">
+    <link rel="stylesheet" href="css/skeleton.2.0.4.min.css">
+    <link rel="stylesheet" href="css/custom.css">
   </head>
 
-  <body>
+  <body class="hidden">
     <div class="section">
       <div class="container">
         <h1 class="logo">Yarn Palette</h1>
-        <p>
+        <p class="webOnly">
           Need help choosing colours for your next Fair Isle project?<br> Pick an image and find the nearest matching colours
           of yarn.
         </p>
-      </div>
-    </div>
-    <div class="section">
-      <div class="container">
-        <h2>Try it</h2>
+        <h2 class="webOnly">Try it</h2>
         <form autocomplete="off">
           <div class="row">
             <div class="six columns">
@@ -37,6 +33,7 @@
                 <option value="JANDS">Jamieson and Smith 2ply Jumper Weight</option>
                 <option value="LETTLOPI">Ístex Léttlopi</option>
                 <option value="KLINTA">Klinta Wolle Nate</option>
+                <option value="FINULLGARN">Rauma Finullgarn</option>
               </select>
             </div>
             <div class="six columns">
@@ -55,23 +52,33 @@
             </div>
           </div>
         </form>
-        <div class="hidden">
+        <div class="hidden webOnly">
           <label for="image-input">Pick an image</label>
           <input type="file" name="inputfile" id="image-input" accept="image/*" />
           <p>The selected image will not leave your device.</p>
+        </div>
+        <div class="hidden appOnly">
+          <div class="row">
+            <div class="six columns">
+              <button id="select-image-button" class="button-primary u-full-width">Select image</button>
+            </div>
+            <div class="six columns">
+              <button id="take-photo-button" class="button-primary u-full-width">Take photo</button>
+            </div>
+          </div>
         </div>
         <div id="selected-image"></div>
       </div>
     </div>
 
-    <div class="section hidden">
+    <div class="section hidden webOnly">
       <div class="container">
         <h2>Examples</h2>
         <div id="example-images"></div>
       </div>
     </div>
 
-    <div class="section">
+    <div class="section webOnly">
       <div class="container">
         <h2>Caveats</h2>
         <ul>
@@ -87,7 +94,7 @@
         <p>
           Created by Ravelry user <a href="http://www.ravelry.com/people/tofay" target="_blank">tofay</a>. Ravellers - please post any feedback on the <a href="https://www.ravelry.com/discuss/yarn-palette/topics/3699832" target="_blank">Ravelry group</a>
         </p>
-        <p>Read about <a href="howitworks.html">how it works.</a></p>
+        <p class="webOnly">Read about <a href="howitworks.html">how it works.</a></p>
       </div>
     </footer>
 
@@ -118,20 +125,27 @@
         <div class="u-full-width">
           {{#yarns}}
           <figure style="display: inline-block">
-            <img class="yarn-img" src="app/www/{{1}}" alt="{{0}}">
+            <img class="yarn-img" src="{{1}}" alt="{{0}}">
             <figcaption>{{0}}</figcaption>
           </figure>
           {{/yarns}}
         </div>
       </div>
     </script>
-    <script src="app/www/js/color-thief.2.0.1.min.js"></script>
-    <script src="app/www/js/jquery.3.2.1.min.js"></script>
-    <script src="app/www/js/mustache.2.3.0.min.js"></script>
-    <script src="app/www/js/d3-color.v1.min.js"></script>
-    <script src="app/www/js/deltae.global.min.js"></script>
-    <script src="app/www/js/yarns.js"></script>
-    <script src="app/www/js/yarn-palette.js"></script>
-    <script src="js/index.js"></script>
+    <script src="cordova.js" onload="javascript:window.isCordovaApp = true;"></script>
+    <script src="js/color-thief.2.0.1.min.js"></script>
+    <script src="js/jquery.3.2.1.min.js"></script>
+    <script src="js/mustache.2.3.0.min.js"></script>
+    <script src="js/d3-color.v1.min.js"></script>
+    <script src="js/deltae.global.min.js"></script>
+    <script src="js/yarns.js"></script>
+    <script src="js/yarn-palette.js"></script>
+    <script>
+      var index_script_url = "js/index_web.js";
+      if (window.isCordovaApp) {
+        index_script_url = "js/index_app.js";
+      }
+      $.getScript(index_script_url);
+    </script>
   </body>
 </html>
